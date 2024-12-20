@@ -116,11 +116,8 @@ namespace hayase.Widgets
                         byte battery = inputReport[2];
                         int batteryPercent = (int)(((battery & 0xE0) >> 4) * 100 / 8);
                         bool charging = false;// (battery & 0x10) != 0;
-                        //File.WriteAllBytes("procontroller.bin", inputReport);
                         Console.WriteLine(device.GetProductName());
                         return new MediaDeviceStatusListItem("Switch Pro Controller", batteryPercent + "%" + (charging ? "+" : ""), batteryPercent / 100.0);
-                        //Console.WriteLine($"pro controller battery level: {batteryPercent}");
-                        //Console.WriteLine("dumped procontroller.bin");
                     }
                     break;
                 default:

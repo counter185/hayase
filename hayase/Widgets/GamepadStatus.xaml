@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:hayase.Widgets"
-             mc:Ignorable="d" Height="144" d:DesignWidth="393" HorizontalContentAlignment="Left">
+             mc:Ignorable="d" Height="115" d:DesignWidth="393" HorizontalContentAlignment="Left">
     <Grid>
         <Label Content="Connected gamepads" Foreground="White" Height="144" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <StackPanel x:Name="panel_devices" Orientation="Vertical" Margin="0,30,0,0">

@@ -23,7 +23,7 @@ namespace hayase
         {
             if (!started)
             {
-                throw new InvalidOperationException("Timer not started");
+                return 0;
             }
             return timeNow() - startTime;
         }
@@ -33,9 +33,9 @@ namespace hayase
             started = false;
         }
 
-        public double PercentElapsed(ulong duration)
+        public double PercentElapsed(ulong duration, long offset = 0)
         {
-            return Math.Min(1.0, (double)Elapsed() / duration);
+            return Math.Min(1.0, (double)Math.Max(0, (long)Elapsed() - offset) / duration);
         }
     }
 }

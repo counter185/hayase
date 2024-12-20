@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static hayase.Interops;
+using System.Windows.Interop;
+using System.Windows;
 
 namespace hayase
 {
@@ -34,6 +38,52 @@ namespace hayase
                 return System.Windows.Media.Color.FromRgb(t, p, v);
             else
                 return System.Windows.Media.Color.FromRgb(v, p, q);
+        }
+
+        public static double DefaultAnimCurve(double x)
+        {
+            return Math.Pow(x - 1, 3) + 1;
+        }
+
+        public static void SetBlurBehind(Window target)
+        {
+            var bb = new DwmBlurbehind
+            {
+                dwFlags = DwmBlurBehindDwFlags.DwmBbEnable,
+                Enabled = true,
+            };
+
+            var hwnd = new WindowInteropHelper(target).Handle;
+
+            const int dwmwaNcrenderingPolicy = 2;
+            var dwmncrpDisabled = 2;
+
+            //MARGINS m = new MARGINS { Left = -1 };
+            //DwmExtendFrameIntoClientArea(hwnd, ref m);
+
+            //DwmSetWindowAttribute(hwnd, dwmwaNcrenderingPolicy, ref dwmncrpDisabled, sizeof(int));
+
+            //HwndSource.FromHwnd(hwnd).CompositionTarget.BackgroundColor = Colors.Transparent;
+            DwmEnableBlurBehindWindow(hwnd, ref bb);
+
+            var accent = new AccentPolicy();
+            accent.AccentState = 3;
+
+            var accentStructSize = Marshal.SizeOf(accent);
+
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData();
+            data.Attribute = 19;
+            data.SizeOfData = accentStructSize;
+            data.Data = accentPtr;
+
+            SetWindowCompositionAttribute(hwnd, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
+
+
         }
     }
 }

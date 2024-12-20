@@ -72,6 +72,7 @@ namespace hayase
         public void RespawnWidgets()
         {
             panelMain.Children.Clear();
+            spawnedWidgets.Clear();
             double calcHeight = 0;
             foreach (string widgetID in WidgetConfig.config.widgetList)
             {
@@ -125,22 +126,17 @@ namespace hayase
         public void HayaseLateActivated()
         {
             this.BringIntoView();
-            SetBlurBehind();
-        }
-
-        public double DefaultAnimCurve(double x)
-        {
-            return Math.Pow(x-1, 3) + 1;
+            Utils.SetBlurBehind(this);
         }
 
         public void AnimationUpdate()
         {
             //Console.WriteLine("*** anim update");
-            this.Width = originalWidth * DefaultAnimCurve(popupActivatedTimer.PercentElapsed(350));
+            this.Width = originalWidth * Utils.DefaultAnimCurve(popupActivatedTimer.PercentElapsed(350));
             double borderAnimPercent = popupActivatedTimer.PercentElapsed(800);
             if (borderAnimPercent < 1)
             {
-                byte borderAlpha = (byte)(255 * (0.1 + (1.0 - DefaultAnimCurve(borderAnimPercent)) * 0.9));
+                byte borderAlpha = (byte)(255 * (0.1 + (1.0 - Utils.DefaultAnimCurve(borderAnimPercent)) * 0.9));
                 borderTemp.A = borderAlpha;
                 borderBrush.Color = borderTemp;
             }
@@ -152,47 +148,6 @@ namespace hayase
                     (widget as IHayaseWidget).Tick(popupActivatedTimer.Elapsed());
                 }
             }
-        }
-
-        void SetBlurBehind()
-        {
-            var bb = new DwmBlurbehind
-            {
-                dwFlags = DwmBlurBehindDwFlags.DwmBbEnable,
-                Enabled = true,
-            };
-
-            var hwnd = new WindowInteropHelper(this).Handle;
-
-            const int dwmwaNcrenderingPolicy = 2;
-            var dwmncrpDisabled = 2;
-
-            //MARGINS m = new MARGINS { Left = -1 };
-            //DwmExtendFrameIntoClientArea(hwnd, ref m);
-
-            //DwmSetWindowAttribute(hwnd, dwmwaNcrenderingPolicy, ref dwmncrpDisabled, sizeof(int));
-
-            //HwndSource.FromHwnd(hwnd).CompositionTarget.BackgroundColor = Colors.Transparent;
-            DwmEnableBlurBehindWindow(hwnd, ref bb);
-
-            var accent = new AccentPolicy();
-            accent.AccentState = 3;
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = 19;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
-
-            SetWindowCompositionAttribute(hwnd, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
-
-
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

@@ -54,7 +54,10 @@ namespace hayase.Config
                     WidgetConfig.config.widgetList.Add(w.Name);
                 }
             }
-            WidgetConfig.config.SaveConfig();
+            if (WidgetConfig.config.SaveConfig())
+            {
+                Popup.SpawnNotificationPopup("Configuration saved.");
+            }
             caller.RespawnWidgets();
             exists = false;
         }

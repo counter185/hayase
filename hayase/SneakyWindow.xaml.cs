@@ -33,6 +33,7 @@ namespace hayase
                 System.Windows.MessageBox.Show("Hayase is already running", "hayase", MessageBoxButton.OK, MessageBoxImage.Error);
                 Environment.Exit(0);
             }
+            Popup.SpawnNotificationPopup("hayase is active!\nPress Alt+Q to summon the quick menu.");
         }
         protected override void OnSourceInitialized(EventArgs e)
         {
