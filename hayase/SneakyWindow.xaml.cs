@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace hayase
 {
@@ -27,6 +28,11 @@ namespace hayase
         {
             InitializeComponent();
             this.caller = caller;
+            if (Process.GetProcessesByName("hayase").Length > 1)
+            {
+                System.Windows.MessageBox.Show("Hayase is already running", "hayase", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(0);
+            }
         }
         protected override void OnSourceInitialized(EventArgs e)
         {

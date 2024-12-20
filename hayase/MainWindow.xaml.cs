@@ -1,4 +1,5 @@
-﻿using hayase.Widgets;
+﻿using hayase.Config;
+using hayase.Widgets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,14 @@ namespace hayase
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Func<System.Windows.Controls.Control>> registeredWidgets = new List<Func<System.Windows.Controls.Control>>();
+        public Dictionary<string, Func<System.Windows.Controls.Control>> registeredWidgets = new Dictionary<string, Func<System.Windows.Controls.Control>>();
         List<System.Windows.Controls.Control> spawnedWidgets = new List<System.Windows.Controls.Control>();
         Timer animTimer = new Timer();
 
         HayaseTimer popupActivatedTimer = new HayaseTimer();
+
+        SolidColorBrush borderBrush = new SolidColorBrush(Colors.White);
+        Color borderTemp = Colors.White;
 
         double originalWidth;
 
@@ -42,33 +46,49 @@ namespace hayase
             InitWidgets();
             animTimer.Interval = 8;
             animTimer.Tick += (a,b) => AnimationUpdate();
+            BorderBrush = borderBrush;
 
             popupActivatedTimer.Start();
         }
 
         
-        public void RegisterWidget<T>(Func<T> widgetProvider) where T : System.Windows.Controls.Control
+        public void RegisterWidget<T>(string key, Func<T> widgetProvider) where T : System.Windows.Controls.Control
         {
-            registeredWidgets.Add(widgetProvider);
+            registeredWidgets.Add(key, widgetProvider);
         }
 
         public void InitWidgets()
         {
-            registeredWidgets.Add(() => new Widgets.Text("Quick menu  (alt+Q)"));
-            registeredWidgets.Add(() => new Widgets.Clock());
-            registeredWidgets.Add(() => new Widgets.MediaButtons());
-            registeredWidgets.Add(() => new Widgets.RunBox());
-            registeredWidgets.Add(() => new Widgets.MediaDeviceStatus());
+            registeredWidgets.Add("hayase.headertext", () => new Widgets.Text("Quick menu  (alt+Q)"));
+            registeredWidgets.Add("hayase.clock", () => new Widgets.Clock());
+            registeredWidgets.Add("hayase.mediabuttons", () => new Widgets.MediaButtons());
+            registeredWidgets.Add("hayase.runbox", () => new Widgets.RunBox());
+            registeredWidgets.Add("hayase.mediadevicestatus", () => new Widgets.MediaDeviceStatus());
 
+            RespawnWidgets();
+        }
+
+        public void RespawnWidgets()
+        {
+            panelMain.Children.Clear();
             double calcHeight = 0;
-            foreach (var widgetProvider in registeredWidgets)
+            foreach (string widgetID in WidgetConfig.config.widgetList)
             {
-                var widget = widgetProvider();
+                if (!registeredWidgets.ContainsKey(widgetID))
+                {
+                    Console.WriteLine($"Widget {widgetID} not found");
+                    continue;
+                }
+                var widget = registeredWidgets[widgetID]();
                 calcHeight += widget.Height;
                 spawnedWidgets.Add(widget);
                 panelMain.Children.Add(widget);
             }
             Height = calcHeight + 20;
+            if (Visibility == Visibility.Visible)
+            {
+                HayaseActivated();
+            }
         }
 
         public void HayaseDeactivated()
@@ -116,6 +136,14 @@ namespace hayase
         {
             //Console.WriteLine("*** anim update");
             this.Width = originalWidth * DefaultAnimCurve(popupActivatedTimer.PercentElapsed(350));
+            double borderAnimPercent = popupActivatedTimer.PercentElapsed(800);
+            if (borderAnimPercent < 1)
+            {
+                byte borderAlpha = (byte)(255 * (0.1 + (1.0 - DefaultAnimCurve(borderAnimPercent)) * 0.9));
+                borderTemp.A = borderAlpha;
+                borderBrush.Color = borderTemp;
+            }
+
             foreach (var widget in spawnedWidgets)
             {
                 if (widget is IHayaseWidget)
@@ -172,6 +200,11 @@ namespace hayase
             {
                 Environment.Exit(0);
             }
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            new WindowConfig(this).Show();
         }
     }
 }

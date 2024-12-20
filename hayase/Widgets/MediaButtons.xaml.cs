@@ -77,8 +77,8 @@ namespace hayase.Widgets
                     var mediaProperties = await GetMediaProperties(session);
                     Dispatcher.Invoke(() =>
                     {
-                        songTitle.Content = mediaProperties.Title;
-                        songArtist.Content = $"{mediaProperties.Artist} :   {mediaProperties.AlbumTitle}";
+                        songTitle.Content = Utils.XAMLString(mediaProperties.Title);
+                        songArtist.Content = $"{Utils.XAMLString(mediaProperties.Artist)} :   {Utils.XAMLString(mediaProperties.AlbumTitle)}";
                     });
                 }
                 else

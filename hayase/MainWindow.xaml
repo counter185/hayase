@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hayase"
         mc:Ignorable="d"
-        Title="hayase quick menu" Height="164" Width="530" WindowStyle="None" AllowsTransparency="True" Topmost="True" BorderBrush="White">
+        Title="hayase quick menu" Height="164" Width="530" WindowStyle="None" AllowsTransparency="True" Topmost="True" BorderThickness="1" BorderBrush="#40FFFFFF">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#B2000112"/>
@@ -16,7 +16,7 @@
         <StackPanel x:Name="panelMain" Orientation="Vertical" Margin="5,5">
 
         </StackPanel>
-        <Button Style="{StaticResource HayaseButtonStyle}" Content="Config" x:Name="btnSettings" HorizontalAlignment="Right" Width="48" Height="25" VerticalAlignment="Top" Margin="0,10,54,0"/>
+        <Button Style="{StaticResource HayaseButtonStyle}" Content="Config" x:Name="btnSettings" HorizontalAlignment="Right" Width="48" Height="25" VerticalAlignment="Top" Margin="0,10,54,0" Click="btnSettings_Click"/>
         <Button Style="{StaticResource HayaseButtonStyle}" Content="Exit" x:Name="btnExit" HorizontalAlignment="Right" Width="39" Height="25" VerticalAlignment="Top" Margin="0,10,10,0" Click="btnExit_Click"/>
     </Grid>
 </Window>
