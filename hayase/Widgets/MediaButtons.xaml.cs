@@ -72,12 +72,23 @@ namespace hayase.Widgets
             {
                 await Task.Delay((int)wait);
                 var gsmtcsm = await GetSystemMediaTransportControlsSessionManager();
-                var mediaProperties = await GetMediaProperties(gsmtcsm.GetCurrentSession());
-                Dispatcher.Invoke(() =>
+                var session = gsmtcsm.GetCurrentSession();
+                if (session != null) { 
+                    var mediaProperties = await GetMediaProperties(session);
+                    Dispatcher.Invoke(() =>
+                    {
+                        songTitle.Content = mediaProperties.Title;
+                        songArtist.Content = $"{mediaProperties.Artist} :   {mediaProperties.AlbumTitle}";
+                    });
+                }
+                else
                 {
-                    songTitle.Content = mediaProperties.Title;
-                    songArtist.Content = $"{mediaProperties.Artist} :   {mediaProperties.AlbumTitle}";
-                });
+                    Dispatcher.Invoke(() =>
+                    {
+                        songTitle.Content = "<no media>";
+                        songArtist.Content = "---";
+                    });
+                }
             });
         }
 

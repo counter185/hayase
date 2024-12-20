@@ -144,7 +144,7 @@ namespace hayase
             //DwmSetWindowAttribute(hwnd, dwmwaNcrenderingPolicy, ref dwmncrpDisabled, sizeof(int));
 
             //HwndSource.FromHwnd(hwnd).CompositionTarget.BackgroundColor = Colors.Transparent;
-            //DwmEnableBlurBehindWindow(hwnd, ref bb);
+            DwmEnableBlurBehindWindow(hwnd, ref bb);
 
             var accent = new AccentPolicy();
             accent.AccentState = 3;
