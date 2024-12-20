@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="hayase.Widgets.RunBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:hayase.Widgets"
+             mc:Ignorable="d" 
+             Height="40">
+    <StackPanel Orientation="Horizontal" Height="30">
+        <TextBox x:Name="runBox" Width="400" Background="#99000000" BorderBrush="White" Foreground="White" BorderThickness="1" Padding="5" KeyDown="runBox_KeyDown" SelectionBrush="#FF4A4A4A" />
+        <Button Style="{DynamicResource HayaseButtonStyle}" Margin="20,0,0,0" x:Name="runBtn" Content="Run" Width="40" Click="runBtn_Click"/>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,20 @@
+﻿<Window x:Class="hayase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hayase"
+        mc:Ignorable="d"
+        Title="hayase quick menu" Height="164" Width="530" WindowStyle="None" AllowsTransparency="True" Topmost="True" BorderBrush="White">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#B2000112"/>
+            <GradientStop Color="#CC000000" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <StackPanel x:Name="panelMain" Orientation="Vertical" Margin="5,5">
+            
+        </StackPanel>
+    </Grid>
+</Window>

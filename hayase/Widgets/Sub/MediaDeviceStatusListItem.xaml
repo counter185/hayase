@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="hayase.Widgets.Sub.MediaDeviceStatusListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:hayase.Widgets.Sub"
+             mc:Ignorable="d"
+             HorizontalContentAlignment="Left">
+    <DockPanel>
+        <Label x:Name="deviceName" DockPanel.Dock="Left" Content="device name" Width="130" Foreground="White"/>
+        <ProgressBar x:Name="batteryBar" Margin="10,0" DockPanel.Dock="Right" Width="200" Height="20" Foreground="White" Background="Transparent" Maximum="1"/>
+        <Label Margin="-10,0" x:Name="batteryPercentage" DockPanel.Dock="Right" Content="100%" Width="40" Foreground="#50FFFFFF"/>
+    </DockPanel>
+</UserControl>

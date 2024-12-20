@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="hayase.Widgets.Clock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:hayase.Widgets"
+             mc:Ignorable="d" Height="93" Width="447" HorizontalAlignment="Left">
+    <Grid>
+        <Label x:Name="clockMainTime" Content="00:00:00" Margin="0,-10,20,0" VerticalAlignment="Top" Height="81" Foreground="White" FontSize="48" FontWeight="Bold"/>
+        <Label x:Name="clockMainDate" Content="01 oct 2024" Margin="0,53,20,0" VerticalAlignment="Top" Height="31" Foreground="White"/>
+
+    </Grid>
+</UserControl>
