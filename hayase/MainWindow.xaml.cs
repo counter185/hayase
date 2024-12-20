@@ -64,6 +64,7 @@ namespace hayase
             registeredWidgets.Add("hayase.mediabuttons", () => new Widgets.MediaButtons());
             registeredWidgets.Add("hayase.runbox", () => new Widgets.RunBox());
             registeredWidgets.Add("hayase.mediadevicestatus", () => new Widgets.MediaDeviceStatus());
+            registeredWidgets.Add("hayase.gamepadstatus", () => new Widgets.GamepadStatus());
 
             RespawnWidgets();
         }

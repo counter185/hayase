@@ -24,5 +24,22 @@ namespace hayase.Widgets.Sub
         {
             InitializeComponent();
         }
+        public MediaDeviceStatusListItem(string name, string batteryPercentageText, double batteryPercent)
+        {
+            InitializeComponent();
+            deviceName.Content = name;
+            batteryPercentage.Content = batteryPercentageText;
+            batteryBar.Value = batteryPercent;
+            batteryBar.Foreground = new SolidColorBrush(GetBatteryColor(batteryPercent));
+        }
+
+        System.Windows.Media.Color GetBatteryColor(double batteryLevel)
+        {
+            double hue = 180 * batteryLevel;
+            double saturation = 1.0;
+            double value = 0.56;
+
+            return Utils.FromHSV(hue, saturation, value);
+        }
     }
 }
