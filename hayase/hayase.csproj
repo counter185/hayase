@@ -164,5 +164,8 @@
       <Version>4.6.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

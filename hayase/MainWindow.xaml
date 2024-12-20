@@ -14,7 +14,9 @@
     </Window.Background>
     <Grid>
         <StackPanel x:Name="panelMain" Orientation="Vertical" Margin="5,5">
-            
+
         </StackPanel>
+        <Button Style="{StaticResource HayaseButtonStyle}" Content="Config" x:Name="btnSettings" HorizontalAlignment="Right" Width="48" Height="25" VerticalAlignment="Top" Margin="0,10,54,0"/>
+        <Button Style="{StaticResource HayaseButtonStyle}" Content="Exit" x:Name="btnExit" HorizontalAlignment="Right" Width="39" Height="25" VerticalAlignment="Top" Margin="0,10,10,0" Click="btnExit_Click"/>
     </Grid>
 </Window>

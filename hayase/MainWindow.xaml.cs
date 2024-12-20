@@ -165,5 +165,13 @@ namespace hayase
 
 
         }
+
+        private void btnExit_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.MessageBox.Show("Close hayase?", "hayase", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Environment.Exit(0);
+            }
+        }
     }
 }
