@@ -42,7 +42,12 @@ namespace hayase.Widgets
                 try
                 {
                     device.Connect();
-                    MediaDeviceStatusListItem item = new MediaDeviceStatusListItem(device.FriendlyName, device.PowerLevel + "%", device.PowerLevel / 100.0);
+                    var potentialFrriendlyNames = new string[] { 
+                        device.FriendlyName, 
+                        $"{device.Manufacturer} {device.Model}",
+                        device.DeviceId 
+                    };
+                    MediaDeviceStatusListItem item = new MediaDeviceStatusListItem(Utils.PickTheFirstOneThatIsntNullOrEmpty(potentialFrriendlyNames), device.PowerLevel + "%", device.PowerLevel / 100.0);
                     panel_devices.Children.Add(item);
                     device.Disconnect();
                     

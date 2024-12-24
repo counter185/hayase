@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static hayase.Interops;
 using System.Windows.Interop;
 using System.Windows;
+using System.Windows.Forms.VisualStyles;
 
 namespace hayase
 {
@@ -84,6 +85,18 @@ namespace hayase
             Marshal.FreeHGlobal(accentPtr);
 
 
+        }
+
+        public static string PickTheFirstOneThatIsntNullOrEmpty(params string[] strings)
+        {
+            foreach (string s in strings)
+            {
+                if (!string.IsNullOrEmpty(s))
+                {
+                    return s;
+                }
+            }
+            return "";
         }
     }
 }
